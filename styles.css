@@ -1,28 +1,7 @@
-body {
-    background-color: #f6f6f6;
-}
-
-.header {
-    width: 100%;
-    background-color: greenyellow;
-    border-bottom: 1px solid black;
-    margin-bottom: 10px;
-    color: white;
-    height: 30px;
-}
-
-.row {
-    width: 90%;
-    -webkit-columns: 2;
-    -webkit-column-gap: 10px;
-    margin: auto
-}
-
-.row > div {
+.chart {
     height: 400px;
-    box-sizing: border-box;
-    border: 1px solid #ddd;
-    background-color: white;
-    margin-bottom: 10px;
-    width: auto
+}
+
+select {
+    height: 250px !important;
 }

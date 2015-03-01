@@ -41,13 +41,52 @@
     };
 
     /**
+     * Add a form to each unused chart area,
+     * cloned from the template form.
+     */
+    var createForms = function()
+    {
+        var templateForm = $('#template-form').remove();
+        $.getJSON( 'http://api.local/metrics/list',  function( response ) {
+
+            // append all available metrics to select
+            var select = templateForm.find('select');
+            for( var i = 0; i < response.length; i++ ) {
+                select.append( '<option value="'+response[i]+'">' + response[i] + '</option>' );
+            }
+
+            $('.chart').each(function(k, v) {
+
+                var form = templateForm.clone();
+                $(v).append( form );
+
+                form.submit( function(e) {
+
+                    e.preventDefault();
+                    var data = $(this).serializeArray();
+                    var metricsForGraph = [];
+
+                    for( var i in data ) {
+                        if ( data.hasOwnProperty(i) ) {
+                            metricsForGraph.push(data[i].value);
+                        }
+                    }
+
+                    var container = $(this).parent().attr('id');
+                    createChart(metricsForGraph, container);
+                } );
+            } );
+        });
+    };
+
+
+    /**
      * Called when the google visualisation library loads
      * this controls setting up the UI to display charts
      */
     var app = function()
     {
-        createChart(['system.net.bytes_sent'], 'chart1');
-        createChart(['system.net.bytes_rcvd'], 'chart2');
+        createForms();
     };
 
     google.load("visualization", "1", {packages:["corechart"]});
