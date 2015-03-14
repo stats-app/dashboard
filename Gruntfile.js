@@ -6,8 +6,8 @@ module.exports = function(grunt) {
     grunt.initConfig({
         bower_concat: {
             all: {
-                dest: 'build/_bower.js',
-                cssDest: 'build/_bower.css'
+                dest: 'public/js/includes.js',
+                cssDest: 'public/css/includes.css'
             }
         }
     } );
