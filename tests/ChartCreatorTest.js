@@ -22,10 +22,12 @@ describe('ChartCreatorTest', function()
         var columns = service.getChartObject( testData ).data.cols;
 
         expect( columns.length ).toBe( 3 );
-        expect( columns[0].label ).toBe( 'cpuWait' );
+        expect( columns[0].label ).toBe( 'Timestamp' );
         expect( columns[0].type ).toBe( 'number' );
-        expect( columns[1].label ).toBe( 'memPhysFree' );
+        expect( columns[1].label ).toBe( 'cpuWait' );
         expect( columns[1].type ).toBe( 'number' );
+        expect( columns[2].label ).toBe( 'memPhysFree' );
+        expect( columns[2].type ).toBe( 'number' );
     } );
 
     it( 'should create as many rows as there are metrics', function() {
@@ -37,15 +39,20 @@ describe('ChartCreatorTest', function()
         var rows = service.getChartObject( testData ).data.rows;
         for ( var i = 0; i < rows.length; i++ ) {
             expect( rows[i].hasOwnProperty('c') ).toBeTruthy();
-            expect( rows[i].c.length ).toEqual( 2 );
+            expect( rows[i].c.length ).toEqual( 3 );
         }
     } );
 
     it( 'should ensure each item in c contains an object where v is the metric value', function() {
         var rows = service.getChartObject( testData ).data.rows;
         for ( var i = 0; i < rows.length; i++ ) {
-            for ( var c = 0; c < rows[i].c.length; c++ ) {
-                expect( rows[i].c[c].v).toEqual( testData[c].values[i] );
+
+            //timestamp is just set the row #
+            expect( rows[i].c[0].v).toEqual( i );
+
+            //but all the other columns should be metrics
+            for ( var c = 1; c < rows[i].c.length; c++ ) {
+                expect( rows[i].c[c].v).toEqual( testData[c-1].values[i] );
             }
         }
     } );

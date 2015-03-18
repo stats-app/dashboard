@@ -18,12 +18,15 @@ describe('GraphControllerTest', function()
         var mockMetricService = {
             getMetricList: function( cb ) {
                 cb( ['cats', 'dogs'] );
+            },
+            getMetricSeries: function( metrics, cb ) {
+                cb( [{name: metrics[0], values: [1,2,3,4]}] );
             }
         };
 
         graphCreator = {
-            createGraph: function( arg ) {
-                return 'creategraph called with ' + arg;
+            getChartObject: function( metrics ) {
+                return {metrics: metrics};
             }
         };
 
@@ -38,8 +41,9 @@ describe('GraphControllerTest', function()
         expect( $scope.metricList[1] ).toBe( 'dogs' );
     } );
 
-    it( 'should set $scope.chartObject to what is returned from the chartCreator when updateChart is called', function() {
-        $scope.updateChart('cats'); //this is invalid chart data but the controller doesn't care
-        expect( $scope.chartObject).toBe( 'creategraph called with cats' );
+    it( 'should set $scope.chartObject to a graph made from metrics from the service', function() {
+        $scope.updateChart(['cats']); //this is invalid chart data but the controller doesn't care
+        // since the mock graph creator just passes thru metrics we expect it to contain what we expect from the api...
+        expect( $scope.chartObject ).toEqual( {metrics: [{name: 'cats', values: [1,2,3,4]}]} );
     } );
 } );
