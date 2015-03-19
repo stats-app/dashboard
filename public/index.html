@@ -29,7 +29,7 @@
                 <div google-chart chart="charts[$index].chart"></div>
                 <form id="template-form">
                     <div class="form-group">
-                        <ui-select theme="bootstrap" multiple ng-change="updateChart($index, charts[$index].metrics)" ng-model="charts[$index].metrics">
+                        <ui-select theme="bootstrap" multiple call-change-every="5" ng-change="updateChart($index, charts[$index].metrics)" ng-model="charts[$index].metrics">
                             <ui-select-match placeholder="search for metrics">{{ $item }}</ui-select-match>
                             <ui-select-choices repeat="m in metricList">{{ m }}</ui-select-choices>
                         </ui-select>

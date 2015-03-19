@@ -22,5 +22,8 @@ graphApp.service( 'metricService', ['$http', 'apiUrlService', function( $http, a
     return new MetricService( $http, apiUrlService );
 }] );
 
+// dodgy as hell update interval directive until I do something better
+graphApp.directive('callChangeEvery', require( './UpdateInterval.js' ) );
+
 //wire up controllers
 graphApp.controller( 'graphController', ['$scope', 'metricService', 'createGraphService', GraphController] );
