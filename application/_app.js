@@ -7,7 +7,7 @@ var GraphController = require('./GraphController.js');
 var GraphCreator = require('./ChartCreator.js');
 
 // create a module for our graph app
-var graphApp = angular.module( 'graphApp', ['googlechart'] );
+var graphApp = angular.module( 'graphApp', ['googlechart', 'ui.select'] );
 
 //wire up services
 graphApp.service('apiUrlService', function() {

@@ -5,6 +5,7 @@
 
     <!-- The app and dependencies -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/includes.css">
     <link rel="stylesheet" href="css/styles.css">
     <script src="js/includes.js"></script>
     <script src="js/modules.js"></script>
@@ -25,50 +26,23 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6">
-            <div class="panel panel-primary">
+            <div class="panel panel-primary" ng-controller="graphController">
                 <div class="panel-heading">
                     <h3 class="panel-title">Choose a graph</h3>
                 </div>
-                <form id="template-form"ng-controller="graphController">
+                <div google-chart chart="chartObject"></div>
+                <form id="template-form">
                     <div class="form-group">
-                        <select multiple ng-change="updateChart(metrics)" ng-model="metrics" ng-options="item for item in metricList"></select>
-                        <div google-chart chart="chartObject" style="{{cssStyle}}"></div>
+                        <ui-select theme="bootstrap" multiple ng-change="updateChart(metrics)" ng-model="$parent.metrics">
+                            <ui-select-match placeholder="search for metrics">{{ $item }}</ui-select-match>
+                            <ui-select-choices repeat="m in metricList">{{ m }}</ui-select-choices>
+                        </ui-select>
                     </div>
                 </form>
 
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Choose a graph</h3>
-                </div>
-                <div class="panel-body chart" id="chart2">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Choose a graph</h3>
-                </div>
-                <div class="panel-body chart" id="chart3">
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Choose a graph</h3>
-                </div>
-                <div class="panel-body chart" id="chart4">
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 </body>
 </html>
