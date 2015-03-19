@@ -15,7 +15,7 @@ module.exports = function()
         var toReturn =
         {
             data: {
-                cols: [{'id': 'Timestamp', 'label': 'Timestamp', type: 'number'}],
+                cols: [{'id': 'Timestamp', 'label': 'Timestamp', type: 'datetime'}],
                 //cols: [],
                 rows: []
             },
@@ -32,13 +32,19 @@ module.exports = function()
             } );
         }
 
+        var timestamps = Object.keys( testData[0].values );
+        timestamps.sort();
+
         //create rows for each metric
-        for( i = 0; i < testData[0].values.length; i++ ) {
-            var column = [{v: i}]; //make up a timestamp value for now
-            //var column = []; //make up a timestamp value for now
+        for( i = 0; i < timestamps.length; i++ ) {
+
+            var timestamp = timestamps[i];
+            var column = [{v: new Date(timestamp * 1000)}];
+
             for ( var metric = 0; metric < testData.length; metric++ ) {
-                column.push( {v: testData[metric].values[i]} );
+                column.push( {v: testData[metric].values[timestamp]} );
             }
+
             toReturn.data.rows.push( {c: column} );
         }
 
