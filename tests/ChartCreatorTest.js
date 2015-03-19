@@ -64,6 +64,6 @@ describe('ChartCreatorTest', function()
 
     it( 'should return an empty object when invalid data is passed', function() {
         var ret = service.getChartObject([]);
-        expect( ret ).toBe( {} );
+        expect( ret ).toEqual( {} );
     } );
 } );

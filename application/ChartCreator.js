@@ -7,7 +7,7 @@ module.exports = function()
 
     this.getChartObject = function( testData )
     {
-        if( typeof testData[0].values == 'undefined' ) {
+        if( typeof testData.length == 'undefined' || !testData.length || typeof testData[0].values == 'undefined' ) {
             return {}
         }
 
