@@ -57,4 +57,13 @@ describe('ChartCreatorTest', function()
         }
     } );
 
+    it( 'should set the title to the names of the metrics used', function() {
+        var title = service.getChartObject( testData ).options.title;
+        expect( title ).toBe( 'cpuWait,memPhysFree' );
+    } );
+
+    it( 'should return an empty object when invalid data is passed', function() {
+        var ret = service.getChartObject([]);
+        expect( ret ).toBe( {} );
+    } );
 } );

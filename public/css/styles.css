@@ -5,3 +5,30 @@
 select {
     height: 250px !important;
 }
+
+html body {
+    background: #eee;
+}
+
+.inner-row {
+    background-color: white;
+    padding: 10px;
+}
+
+.chart-col {
+    margin-bottom: 20px;
+}
+
+.inner-row, .add-chart {
+    height: 400px;
+}
+
+.add-chart {
+    box-sizing: border-box;
+    border: 1px dashed #aaa;
+}
+
+.add-chart-button {
+    margin: 160px auto auto auto;
+    max-width: 50%;
+}

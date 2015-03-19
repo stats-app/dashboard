@@ -12,7 +12,6 @@
 
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body ng-app="graphApp">
@@ -23,26 +22,30 @@
         </div>
     </div>
 </nav>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="panel panel-primary" ng-controller="graphController">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Choose a graph</h3>
-                </div>
-                <div google-chart chart="chartObject"></div>
+<div class="container-fluid" ng-controller="graphController">
+    <div class="row" >
+        <div ng-repeat="chart in charts" class="col-md-6 chart-col" >
+            <div class="inner-row">
+                <div google-chart chart="charts[$index].chart"></div>
                 <form id="template-form">
                     <div class="form-group">
-                        <ui-select theme="bootstrap" multiple ng-change="updateChart(metrics)" ng-model="$parent.metrics">
+                        <ui-select theme="bootstrap" multiple ng-change="updateChart($index, charts[$index].metrics)" ng-model="charts[$index].metrics">
                             <ui-select-match placeholder="search for metrics">{{ $item }}</ui-select-match>
                             <ui-select-choices repeat="m in metricList">{{ m }}</ui-select-choices>
                         </ui-select>
                     </div>
                 </form>
-
-                </div>
             </div>
         </div>
+        <div class="col-md-6 chart-col">
+            <div class="add-chart">
+                <button type="button" ng-click="addChart()" class="add-chart-button btn btn-success btn-lg btn-block">Add graph</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+    </div>
 </div>
 </body>
 </html>

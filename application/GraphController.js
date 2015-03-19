@@ -6,10 +6,16 @@ module.exports = function( $scope, graphService, graphCreator )
     "use strict";
     $scope.metricList = [];
     $scope.chartObject = {};
+    $scope.charts = [];
 
-    $scope.updateChart = function( metrics ) {
+    $scope.addChart = function()
+    {
+        $scope.charts.push( {chart: {}, metrics: []} );
+    };
+
+    $scope.updateChart = function( chart, metrics ) {
         graphService.getMetricSeries( metrics, function( out ) {
-            $scope.chartObject = graphCreator.getChartObject( out );
+            $scope.charts[chart].chart = graphCreator.getChartObject( out );
         } );
     };
 

@@ -41,9 +41,17 @@ describe('GraphControllerTest', function()
         expect( $scope.metricList[1] ).toBe( 'dogs' );
     } );
 
+    it( 'should add an empty chart object when addChart is called', function() {
+        expect( $scope.charts.length ).toBe( 0 );
+        $scope.addChart();
+        expect( $scope.charts.length ).toBe( 1 );
+        expect( $scope.charts[0].chart ).toEqual( {} );
+        expect( $scope.charts[0].metrics ).toEqual( [] );
+    } );
+
     it( 'should set $scope.chartObject to a graph made from metrics from the service', function() {
-        $scope.updateChart(['cats']); //this is invalid chart data but the controller doesn't care
-        // since the mock graph creator just passes thru metrics we expect it to contain what we expect from the api...
-        expect( $scope.chartObject ).toEqual( {metrics: [{name: 'cats', values: [1,2,3,4]}]} );
+        $scope.addChart();
+        $scope.updateChart(0, ['cats']); //this is invalid chart data but the controller doesn't care
+        expect( $scope.charts[0].chart ).toEqual( {metrics: [{name: 'cats', values: [1,2,3,4]}]} );
     } );
 } );

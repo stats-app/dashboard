@@ -7,6 +7,11 @@ module.exports = function()
 
     this.getChartObject = function( testData )
     {
+        if( typeof testData[0].values == 'undefined' ) {
+            return {}
+        }
+
+        var metricNames = [];
         var toReturn =
         {
             data: {
@@ -19,6 +24,7 @@ module.exports = function()
 
         //create columns
         for( var i = 0; i < testData.length; i++ ) {
+            metricNames.push( testData[i].name );
             toReturn.data.cols.push( {
                 'id': testData[i].name,
                 'label': testData[i].name,
@@ -36,6 +42,7 @@ module.exports = function()
             toReturn.data.rows.push( {c: column} );
         }
 
+        toReturn.options = {title: metricNames.toString(), height: 350};
         return toReturn;
     }
 };
